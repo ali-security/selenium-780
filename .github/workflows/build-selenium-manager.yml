@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   win32:
     name: "[Windows x32] Build selenium-manager"
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
       RUSTFLAGS: '-Ctarget-feature=+crt-static'
     steps:
@@ -30,7 +30,7 @@ jobs:
 
   linux64:
     name: "[Linux x64] Build selenium-manager"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       RUSTFLAGS: '-Ctarget-feature=-crt-static'
     steps:
