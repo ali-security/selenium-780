@@ -3,6 +3,11 @@ FROM shs96c/selenium-remote-build:latest
 
 USER root
 
+# fix apt-get update
+RUN apt-get update || true
+RUN apt-get install -y curl
+RUN curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+
 RUN apt-get update -qqy && apt-get install -y wget curl gnupg2
 
 # So we can install browsers later
