@@ -110,7 +110,7 @@ jobs:
           chrome-version: ${{ inputs.browser-version || 'stable' }}
       - name: Setup Firefox
         if: inputs.browser == 'firefox'
-        uses: ali-security/setup-browser@dc6afd26723633364cbc597556c075d1fd3ebfea
+        uses: ali-security/setup-browser@4e1f810b3f116cfc7db1964e8c753272ac2c10d1
         with:
           browser: firefox
           version: ${{ inputs.browser-version || 'latest' }}
