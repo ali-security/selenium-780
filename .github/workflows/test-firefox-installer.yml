@@ -24,10 +24,10 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Setup Firefox
-        uses: ali-security/setup-browser@4e1f810b3f116cfc7db1964e8c753272ac2c10d1
+        uses: abhi1693/setup-browser@v0.3.5
         with:
           browser: firefox
-          version: ${{ inputs.browser-version }}
+          version: "110.0"
       
       - name: Verify Firefox Installation
         run: |
