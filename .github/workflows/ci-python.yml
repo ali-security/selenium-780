@@ -3,6 +3,12 @@ name: CI - Python
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      browser-version:
+        description: Browser version
+        required: false
+        type: string
+        default: "110.0"
 
 jobs:
   build:
@@ -96,6 +102,7 @@ jobs:
         browser:
           - chrome
           - firefox
+        browser-version: ${{ inputs.browser-version }}
     with:
       name: Integration Tests (${{ matrix.browser }})
       browser: ${{ matrix.browser }}
@@ -109,5 +116,6 @@ jobs:
     with:
       name: Integration Tests (remote)
       browser: firefox
+      browser-version: ${{ inputs.browser-version }}
       cache-key: py-remote
       run: bazel test --local_test_jobs 1 --flaky_test_attempts 3 //py:test-remote
