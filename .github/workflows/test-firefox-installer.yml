@@ -29,6 +29,11 @@ jobs:
           browser: firefox
           version: "110.0"
       
+      - name: Install Firefox dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libdbus-glib-1-2
+
       - name: Verify Firefox Installation
         run: |
           firefox --version
