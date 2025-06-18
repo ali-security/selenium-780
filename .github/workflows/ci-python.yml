@@ -99,13 +99,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser:
-          - chrome
-          - firefox
-        browser-version: ${{ inputs.browser-version }}
+        include:
+          - browser: chrome
+            browser-version: "stable"
+          - browser: chrome
+            browser-version: "118.0.5979.0"
+          - browser: firefox
+            browser-version: "110.0"
+          - browser: firefox
+            browser-version: "latest"
     with:
-      name: Integration Tests (${{ matrix.browser }})
+      name: Integration Tests (${{ matrix.browser }} - ${{ matrix.browser-version }})
       browser: ${{ matrix.browser }}
+      browser-version: ${{ matrix.browser-version }}
       cache-key: py-${{ matrix.browser }}
       run: bazel test --flaky_test_attempts 3 //py:test-${{ matrix.browser }}
 

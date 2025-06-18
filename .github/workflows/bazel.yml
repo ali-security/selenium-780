@@ -25,7 +25,7 @@ on:
         description: One of stable, latest, latest-beta or latest-devedition
         required: false
         type: string
-        default: '110.0'
+        default: ''
       cache-key:
         description: Bazel disk cache key
         required: false
@@ -113,7 +113,7 @@ jobs:
         uses: abhi1693/setup-browser@v0.3.5
         with:
           browser: firefox
-          version: ${{ inputs.browser-version }}
+          version: ${{ inputs.browser-version || 'latest' }}
       - name: Setup Edge
         if: inputs.browser == 'edge'
         uses: browser-actions/setup-edge@latest
