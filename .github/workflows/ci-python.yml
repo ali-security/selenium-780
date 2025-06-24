@@ -11,17 +11,17 @@ jobs:
     with:
       name: Build
       cache-key: py-build
-      run: bazel build //py:selenium-wheel //py:selenium-sdist
+      run: bazel build --stamp //py:selenium-wheel //py:selenium-sdist
 
   docs:
     name: Documentation
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source tree
         uses: actions/checkout@v3
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -36,12 +36,12 @@ jobs:
   lint:
     name: Lint
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source tree
         uses: actions/checkout@v3
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -58,12 +58,12 @@ jobs:
   mypy:
     name: Mypy
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source tree
         uses: actions/checkout@v3
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -88,7 +88,7 @@ jobs:
 
   browser-tests:
     name: Browser Tests
-    needs: unit-tests
+    needs: build
     uses: ./.github/workflows/bazel.yml
     strategy:
       fail-fast: false
@@ -104,7 +104,7 @@ jobs:
 
   remote-tests:
     name: Remote Tests
-    needs: unit-tests
+    needs: build
     uses: ./.github/workflows/bazel.yml
     with:
       name: Integration Tests (remote)

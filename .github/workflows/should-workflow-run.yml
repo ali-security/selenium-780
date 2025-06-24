@@ -20,7 +20,7 @@ on:
 
 jobs:
   check_workflow_run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       result: ${{ steps.check-bazel-target-prefix.outputs.run-workflow }}
     steps:

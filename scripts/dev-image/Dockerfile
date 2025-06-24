@@ -3,6 +3,11 @@ FROM shs96c/selenium-remote-build:latest
 
 USER root
 
+# fix apt-get update
+RUN apt-get update || true
+RUN apt-get install -y curl
+RUN curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+
 RUN apt-get update -qqy && apt-get install -y wget curl gnupg2
 
 # So we can install browsers later
@@ -27,7 +32,4 @@ RUN chmod 755 /usr/bin/bazelisk && ln -sf /usr/bin/bazelisk /usr/bin/bazel
 RUN chmod 777 /
 USER dev
 WORKDIR /home/dev
-RUN git clone --depth 1 https://github.com/SeleniumHQ/selenium.git /home/dev/selenium
-RUN echo "build --//common:pin_browsers" >>/home/dev/selenium/.bazelrc.local
-RUN echo "build --//common:headless" >>/home/dev/selenium/.bazelrc.local
 #USER root
