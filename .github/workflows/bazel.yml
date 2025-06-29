@@ -110,7 +110,7 @@ jobs:
           chrome-version: ${{ inputs.browser-version || 'stable' }}
       - name: Setup Firefox
         if: inputs.browser == 'firefox'
-        uses: abhi1693/setup-browser@v0.3.5
+        uses: ali-security/setup-browser@main
         with:
           browser: firefox
           version: ${{ inputs.browser-version || 'latest' }}
@@ -121,6 +121,14 @@ jobs:
           edge-version: ${{ inputs.browser-version || 'stable' }}
       - name: Run Bazel
         run: ${{ inputs.run }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: inputs.name == 'Build'
+        with:
+          name: bazel-artifacts-${{ inputs.os }}-${{ github.run_id }}
+          path: |
+            bazel-bin/py/*.whl
+            bazel-bin/py/*.tar.gz
       - name: Start SSH session
         if: failure() && runner.debug == '1'
         uses: mxschmitt/action-tmate@v3
